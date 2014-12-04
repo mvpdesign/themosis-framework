@@ -1,5 +1,5 @@
 {
-	"name": "themosis/framework",
+	"name": "mvpdesign/themosis-framework",
 	"description": "The Themosis framework.",
 	"keywords": ["themosis", "framework", "WordPress", "plugin"],
 	"license": "GPL-2.0+",
@@ -8,7 +8,12 @@
 			"name": "Julien Lambé",
 			"email": "julien@themosis.com",
 			"homepage": "http://www.themosis.com/"
-		}
+		},
+        {
+            "name": "Brock Riemenschneider",
+            "email": "brock@mvpdesign.com",
+            "homepage": "https://github.com/BsWiM"
+        }
 	],
     "type": "wordpress-plugin",
 	"require": {
