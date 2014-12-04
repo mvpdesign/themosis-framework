@@ -85,7 +85,7 @@ class Configuration
             $role = $user->roles;
             $role = (count($role) > 0) ? $role[0] : '';
 
-            if (!in_array($role, $access) && !(defined('DOING_AJAX') && DOING_AJAX)  && !(defined('WP_CLI') && WP_CLI))
+            if ((!in_array($role, $access) && is_user_logged_in()) && !(defined('DOING_AJAX') && DOING_AJAX) && !(defined('WP_CLI') && WP_CLI))
             {
                 wp_redirect(home_url());
                 exit;
