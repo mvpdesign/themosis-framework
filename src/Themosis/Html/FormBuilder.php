@@ -49,7 +49,8 @@ class FormBuilder {
         // If a character encoding has not been specified in the attributes, we will
         // use the default encoding as specified in the application configuration
         // file for the "accept-charset" attribute.
-        if (!array_key_exists('accept-charset', $attributes)) {
+        if (!array_key_exists('accept-charset', $attributes))
+        {
             $attributes['accept-charset'] = Application::get('encoding');
         }
 
@@ -57,9 +58,26 @@ class FormBuilder {
         // IF 'POST' METHOD
         // HELP TO AVOID CSRF
         $append = '';
+        $nonceAction = Session::nonceAction;
+        $nonceName = Session::nonceName;
 
-        if ($attributes['method'] === 'POST') {
-            $append = wp_nonce_field(Session::nonceAction, Session::nonceName, true, false);
+        // Replace custom nonce action.
+        if (isset($attributes['nonce_action']))
+        {
+            $nonceAction = $attributes['nonce_action'];
+            unset($attributes['nonce_action']);
+        }
+
+        // Replace custom nonce name.
+        if (isset($attributes['nonce']))
+        {
+            $nonceName = $attributes['nonce'];
+            unset($attributes['nonce']);
+        }
+
+        if ($attributes['method'] === 'POST')
+        {
+            $append = wp_nonce_field($nonceAction, $nonceName, true, false);
         }
 
         return '<form'.$this->html->attributes($attributes).'>'.$append;
@@ -170,7 +188,8 @@ class FormBuilder {
      */
     public function email($name, $value = null, array $attributes = array())
     {
-        if(!isset($attributes['placeholder'])){
+        if (!isset($attributes['placeholder']))
+        {
             $attributes['placeholder'] = 'Please enter your email...';
         }
 
@@ -201,11 +220,12 @@ class FormBuilder {
     public function checkbox($name, $value = null, array $attributes = array())
     {
         // If checkbox value is 'on', show it checked.
-        if('on' === $value){
+        if ('on' === $value)
+        {
             $attributes['checked'] = 'checked';
         }
 
-        return $this->input('checkbox', $name, null, $attributes);
+        return $this->input('checkbox', $name, $value, $attributes);
     }
 
     /**
